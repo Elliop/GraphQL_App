@@ -1,13 +1,5 @@
-import { gql, useQuery } from "@apollo/client";
-
-const getAuthorsQuery = gql`
-  {
-    authors {
-      name
-      id
-    }
-  }
-`;
+import { useQuery } from "@apollo/client";
+import { getAuthorsQuery } from "../queries/queries";
 
 const AddBook = () => {
   const { loading, data } = useQuery(getAuthorsQuery);
