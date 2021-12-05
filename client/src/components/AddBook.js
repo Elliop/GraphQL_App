@@ -1,11 +1,14 @@
 import { useQuery } from "@apollo/client";
+import { useState } from "react";
 import { getAuthorsQuery } from "../queries/queries";
 
 const AddBook = () => {
+  const [form, setForm] = useState({ name: "", genre: "", authorId: "" });
   const { loading, data } = useQuery(getAuthorsQuery);
+
   const displayAuthors = () => {
     if (loading) {
-      return <div>Loading authors</div>;
+      return <option>Loading authors</option>;
     } else {
       return data.authors.map((author) => {
         return (
@@ -16,19 +19,33 @@ const AddBook = () => {
       });
     }
   };
+
+  const submitForm = (e) => {
+    e.preventDefault();
+    console.log(form);
+  };
+
   return (
-    <form id="add-book">
+    <form id="add-book" onSubmit={submitForm}>
       <div className="field">
         <label>Book name:</label>
-        <input type="text" />
+        <input
+          type="text"
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
+        />
       </div>
       <div className="field">
         <label>Genre:</label>
-        <input type="text" />
+        <input
+          type="text"
+          onChange={(e) => setForm({ ...form, genre: e.target.value })}
+        />
       </div>
       <div className="field">
         <label>Author:</label>
-        <select>
+        <select
+          onChange={(e) => setForm({ ...form, authorId: e.target.value })}
+        >
           <option>Select author</option>
           {displayAuthors()}
         </select>
