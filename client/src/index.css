@@ -19,6 +19,10 @@ body {
   padding: 0;
 }
 
+#book-list {
+  width: 60%;
+}
+
 #book-list li {
   display: inline-block;
   margin: 12px;
